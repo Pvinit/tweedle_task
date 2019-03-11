@@ -114,9 +114,10 @@ var userApi = {
     "updateUserDetails": (req, res) => {
         console.log(req.body);
         try {
+            req.body['password'] = securityHandler.encrypt(req.body.password);
             let query = user.findOneAndUpdate(req.decoded._id, req.body, {
                 new: true
-            });;
+            });
 
             query.exec((err, success) => {
                 if (err) {
